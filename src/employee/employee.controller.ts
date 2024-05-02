@@ -41,10 +41,12 @@ export class EmployeeController {
     @Get()
     @HttpCode(200)
     async read(
-        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
-        @Query('size', new DefaultValuePipe(5), ParseIntPipe) size: number,
+        @Query('name') name?: string,
+        @Query('page', new DefaultValuePipe(1), ParseIntPipe) page?: number,
+        @Query('size', new DefaultValuePipe(5), ParseIntPipe) size?: number,
     ): Promise<WebResponse<EmployeeResponse[]>> {
         const pagination: SearchEmployeeRequest = {
+            name,
             page,
             size,
         };

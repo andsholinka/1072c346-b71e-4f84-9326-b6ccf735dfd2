@@ -71,6 +71,7 @@ export class EmployeeResponse {
 }
 
 export class SearchEmployeeRequest {
+    name?: string;
     page?: number;
     size?: number;
 }

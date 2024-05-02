@@ -85,14 +85,39 @@ export class EmployeeService {
             request,
         );
 
+        const filters = [];
+
+        if (searchRequest.name) {
+            filters.push({
+                OR: [
+                    {
+                        first_name: {
+                            contains: searchRequest.name,
+                        },
+                    },
+                    {
+                        last_name: {
+                            contains: searchRequest.name,
+                        },
+                    },
+                ],
+            });
+        }
+
         const skip = (searchRequest.page - 1) * searchRequest.size;
 
         const employees = await this.prismaService.employee.findMany({
+            where: {
+                AND: filters,
+            },
             take: searchRequest.size,
             skip: skip,
         });
 
         const total = await this.prismaService.employee.count({
+            where: {
+                AND: filters,
+            },
         });
 
         return {

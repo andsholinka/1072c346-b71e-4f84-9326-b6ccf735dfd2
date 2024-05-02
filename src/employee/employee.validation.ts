@@ -18,6 +18,7 @@ export class EmployeeValidation {
     });
 
     static readonly SEARCH: ZodType = z.object({
+        name: z.string().min(1).optional(),
         page: z.number().min(1).positive().optional(),
         size: z.number().min(1).max(100).positive().optional(),
     });
